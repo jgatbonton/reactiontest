@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>Javascript</title>
+
+        <style type="text/css">
+            #shape {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                display: none;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <input type="text" name="name" id="textInput">
+        <button id="textChanger">Change the text.</button>
+        <p id="someText">This is some text.</p> -->
+        <header><h1>Test Your Reactions!</h1></header>
+
+        <p>Click on the boxes as quickly as you can! </p>
+
+        <p>Your time: <span id="result"></span></p>
+        <p>Your <strong>fastest</strong> time: <span id="bestResult"></span></p>
+
+        <div id="shape"></div>
+       
+
+       <script type="text/javascript">
+            var start = new Date().getTime(); // time first measured when page loaded
+            var bestTime = 8640000000000000; // max value of time allowed in js
+
+            function makeShapeAppear() {
+                var topMargin = Math.random() * 400;
+                var leftMargin = Math.random() * 400;
+                var heightWidth = (Math.random() * 250) + 50;
+
+                // make circle 50% of the time
+                if(Math.random() > 0.5) {
+                    document.getElementById("shape").style.borderRadius = "50%";
+                }
+                else {
+                    document.getElementById("shape").style.borderRadius = "0";
+                }
+                document.getElementById("shape").style.backgroundColor = getRandomColor();
+                document.getElementById("shape").style.height = heightWidth + "px";
+                document.getElementById("shape").style.width = heightWidth + "px";
+                document.getElementById("shape").style.top = topMargin + "px";
+                document.getElementById("shape").style.left = leftMargin + "px";
+                document.getElementById("shape").style.display = "block";
+                start = new Date().getTime();
+            }
+
+            function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+            function appearDelay() {
+                setTimeout(makeShapeAppear, Math.random()*2000);
+            }
+            appearDelay();
+
+
+            function saveBestTime(time) {
+                if(time <= bestTime) {
+                    bestTime = time;
+                    document.getElementById("bestResult").innerHTML = bestTime + "s";
+                }
+
+            }
+            document.getElementById("shape").onclick = function() {
+                document.getElementById("shape").style.display = "none";
+
+                // get time
+                var end = new Date().getTime();
+                var time = (end - start)/1000;
+                document.getElementById("result").innerHTML = time + "s";
+                saveBestTime(time);
+
+                appearDelay();
+
+            }
+            
+            // document.getElementById("textChanger").onclick = function() {
+            //     var textEntered = ""; // tells browser we want this to be a string
+            //     textEntered = document.getElementById("textInput").value;
+            //     document.getElementById("someText").innerHTML = textEntered;
+            // }
+            // document.getElementById("myButton").onclick = function() {
+            //     document.getElementById("text").innerHTML = 'This is my world';
+            // }
+            // document.getElementById("secondButton").onclick = function() {
+            //     document.getElementById("secondText").innerHTML = 'I think ' + document.getElementById("secondText").innerHTML + 'awesomeee';
+            // }
+            
+            // document.getElementById("thirdButton").onclick = function() {
+            //     document.getElementById("thirdText").innerHTML = 'I think JS is awesomeeee!!';
+            // }
+
+            // document.getElementById("styleText").onclick = function() {
+            //     document.getElementById("moreText").style.display = 'none'; 
+            // }
+       </script>
+    </body>
+</html>
